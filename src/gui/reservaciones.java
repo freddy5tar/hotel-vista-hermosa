@@ -228,7 +228,7 @@ public class reservaciones extends javax.swing.JFrame {
         fecha_salida.setText("    ");
         tarjeta.setText("    ");
         vencimiento.setText("    ");
-        //Id.setText(null+Id);
+        //Id.setText(null+Id); algo aqui no va bien, revisar que corresponda a extraer el dato del id de habitacion del archivo habitaciones.txt 
         JOptionPane.showMessageDialog(null,"Reservacion guardada");
         
     }//GEN-LAST:event_guardarActionPerformed

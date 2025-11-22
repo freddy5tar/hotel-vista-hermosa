@@ -160,7 +160,7 @@ public class habitaciones extends javax.swing.JFrame {
     private void idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idActionPerformed
         
             int id = 1;
-            id++;
+            id++; //aqui se necesita que el campo se inicie con un numero y que vaya aumentando cada vez que se guarda en el archivo txt
             
         
         
