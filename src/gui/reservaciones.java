@@ -1,7 +1,11 @@
 
 package gui;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.Date;
+import java.util.StringTokenizer;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,6 +24,22 @@ public class reservaciones extends javax.swing.JFrame {
      */
     public reservaciones() {
         initComponents();
+    }
+    private void llenarCombo(){
+        try{
+             BufferedReader br=new BufferedReader(new FileReader("habitaciones.txt"));
+          String linea;
+          JComboBox<String> id_habitacion=new JComboBox<String>();
+          while((linea = br.readLine()) != null) {
+            StringTokenizer tokens = new StringTokenizer(linea,",");
+            System.out.println(tokens.nextElement());
+            id_habitacion.addItem(tokens.nextToken());
+
+          }
+          br.close();
+        } catch(Exception x) {
+          x.printStackTrace();
+        }
     }
 
     
@@ -171,6 +191,11 @@ public class reservaciones extends javax.swing.JFrame {
 
         id_habitacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
         id_habitacion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        id_habitacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                id_habitacionActionPerformed(evt);
+            }
+        });
         RESERVACIONES.add(id_habitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 380, 60, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -232,6 +257,10 @@ public class reservaciones extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null,"Reservacion guardada");
         
     }//GEN-LAST:event_guardarActionPerformed
+
+    private void id_habitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_id_habitacionActionPerformed
+        // el contenido del combo box debe provenir del archivo habitaciones.txt
+    }//GEN-LAST:event_id_habitacionActionPerformed
 
     
     public static void main(String args[]) {
