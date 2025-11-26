@@ -3,10 +3,8 @@ package gui;
 
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author ALFREDO
- */
+
+
 
 public class habitaciones extends javax.swing.JFrame {
     

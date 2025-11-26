@@ -8,10 +8,7 @@ import java.util.StringTokenizer;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author ALFREDO
- */
+
 public class reservaciones extends javax.swing.JFrame {
     
     
