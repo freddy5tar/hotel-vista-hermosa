@@ -1,7 +1,10 @@
 
 package gui;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,9 +23,40 @@ public class habitaciones extends javax.swing.JFrame {
     
     public habitaciones() {
         initComponents();
-        id.setText(String.valueOf(contadorId)); //he inicializado el jTexField para que muestre el id desde el inicio
+        inicializarId();
         id.setEditable(false); // he bloqueado para que no se pueda editar manualmente y ocurra algun error de duplicidad de id
     }
+
+    private void inicializarId() {
+    File archivo = new File("habitaciones.txt");
+    if (archivo.exists()) {
+        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+            String linea;
+            int ultimoId = 0;
+            while ((linea = br.readLine()) != null) {
+                // Cada registro tiene formato: ID;tipo;descripcion;precio_sin;precio_con
+                String[] campos = linea.split(";");
+                if (campos.length > 0) {
+                    try {
+                        int idLeido = Integer.parseInt(campos[0].trim());
+                        if (idLeido > ultimoId) {
+                            ultimoId = idLeido;
+                        }
+                    } catch (NumberFormatException e) {
+                        // Ignorar líneas mal formateadas
+                    }
+                }
+            }
+            contadorId = ultimoId + 1; // siguiente consecutivo
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error al leer archivo: " + e.getMessage());
+        }
+    } else {
+        contadorId = 1; // si no existe, empezar en 1
+    }
+    id.setText(String.valueOf(contadorId));
+    
+}
 
     
     @SuppressWarnings("unchecked")
@@ -164,9 +198,6 @@ public class habitaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_tipoActionPerformed
 
     private void idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idActionPerformed
-        
-        // int id = 1;
-        //id++; //aqui se necesita que el campo se inicie con un numero y que vaya aumentando cada vez que se guarda en el archivo txt
             
         
         
