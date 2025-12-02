@@ -22,22 +22,7 @@ public class reservaciones extends javax.swing.JFrame {
     public reservaciones() {
         initComponents();
     }
-    private void llenarCombo(){
-        try{
-             BufferedReader br=new BufferedReader(new FileReader("habitaciones.txt"));
-          String linea;
-          JComboBox<String> id_habitacion=new JComboBox<String>();
-          while((linea = br.readLine()) != null) {
-            StringTokenizer tokens = new StringTokenizer(linea,",");
-            System.out.println(tokens.nextElement());
-            id_habitacion.addItem(tokens.nextToken());
-
-          }
-          br.close();
-        } catch(Exception x) {
-          x.printStackTrace();
-        }
-    }
+    
 
     
     @SuppressWarnings("unchecked")

@@ -1,6 +1,10 @@
 
 package gui;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import javax.swing.JOptionPane;
 
 
@@ -11,9 +15,13 @@ public class habitaciones extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(habitaciones.class.getName());
 
+    private static int contadorId = 1;
+
     
     public habitaciones() {
         initComponents();
+        id.setText(String.valueOf(contadorId)); //he inicializado el jTexField para que muestre el id desde el inicio
+        id.setEditable(false); // he bloqueado para que no se pueda editar manualmente y ocurra algun error de duplicidad de id
     }
 
     
@@ -157,17 +165,41 @@ public class habitaciones extends javax.swing.JFrame {
 
     private void idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idActionPerformed
         
-            int id = 1;
-            id++; //aqui se necesita que el campo se inicie con un numero y que vaya aumentando cada vez que se guarda en el archivo txt
+        // int id = 1;
+        //id++; //aqui se necesita que el campo se inicie con un numero y que vaya aumentando cada vez que se guarda en el archivo txt
             
         
         
     }//GEN-LAST:event_idActionPerformed
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-        id.setText("   ");
-        
+        String text = id.getText();
+        id.setText(String.valueOf(contadorId));
+        contadorId++;
+        id.setText(String.valueOf(contadorId)); // se ejecuta de nuevo para que se muestre el cambio de inmediato
+         try (FileWriter fw = new FileWriter("habitaciones.txt", true);
+             BufferedWriter bw = new BufferedWriter(fw);
+             PrintWriter out = new PrintWriter(bw)) {
+
+            String registro = id.getText() + ";" +
+                              tipo.getText() + ";" +
+                              descripcion.getText() + ";" +
+                              precio_sin_desayuno.getText() + ";" +
+                              precio_con_desayuno.getText();
+
+            out.println(registro);
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error al guardar: " + e.getMessage());
+        }
+
         JOptionPane.showMessageDialog(null,"Habitacion registrada");
+        //para facilitar el registro se limpian los demas campos
+            tipo.setText("");
+            descripcion.setText("");
+            precio_sin_desayuno.setText("");
+            precio_con_desayuno.setText("");
+
     }//GEN-LAST:event_guardarActionPerformed
 
     /**
